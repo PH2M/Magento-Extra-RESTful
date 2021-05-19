@@ -88,7 +88,7 @@ class Clockworkgeek_Extrarestful_Model_Api2_Categorytree extends Clockworkgeek_E
             if (isset($categories[$parent])) {
                 $categories[$parent]['children'][] = &$category;
             }
-            else {
+            elseif((int) $category['level'] === 2) {
                 $data[] = &$category;
             }
         }
