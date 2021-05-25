@@ -83,12 +83,14 @@ class Clockworkgeek_Extrarestful_Model_Api2_Categorytree extends Clockworkgeek_E
     protected function _render($categories)
     {
         $data = array();
+        $rootCategoryId = (int) Mage::app()->getStore()->getRootCategoryId();
+        
         foreach ($categories as $categoryId => &$category) {
             $parent = @$this->_parents[$categoryId];
             if (isset($categories[$parent])) {
                 $categories[$parent]['children'][] = &$category;
             }
-            elseif((int) $category['level'] === 2) {
+            elseif ((int)$category['parent_id'] === $rootCategoryId) {
                 $data[] = &$category;
             }
         }
